@@ -6,6 +6,9 @@
  * @version 1.0.0
  * @author Ariel Flesler
  * http://flesler.blogspot.com/2008/03/xmlwriter-for-javascript.html
+ *
+ *  Modifications:
+ *   02/26/2011 - Fixed standalone and added html for escaping (alexandern)
  */
  
 function XMLWriter( encoding, version ){
