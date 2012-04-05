@@ -55,6 +55,11 @@ XMLWriter.prototype = {
 			this.root = node;
 		this.active = node;
 	},
+	// Delete last node
+	deleteEndElement:function(){
+		this.stack.pop();
+		this.active.c.pop();
+	},
 	//go up one node, if we are in the root, ignore it
 	writeEndElement:function(){
 		this.active = this.stack.pop() || this.root;
