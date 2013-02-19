@@ -10,7 +10,7 @@
  *  Modifications:
  *   02/26/2011 - Fixed standalone and added html for escaping (alexandern)
  */
- 
+
 function XMLWriter( encoding, version ){
 	if( encoding )
 		this.encoding = encoding;
@@ -18,7 +18,7 @@ function XMLWriter( encoding, version ){
 		this.version = version;
 };
 (function(){
-	
+
 XMLWriter.prototype = {
 	encoding:'ISO-8859-1',// what is the encoding
 	version:'1.0', //what xml version to use
@@ -45,9 +45,9 @@ XMLWriter.prototype = {
 	writeStartElement:function( name, ns ){
 		if( ns )//namespace
 			name = ns + ':' + name;
-		
+
 		var node = { n:name, a:{ }, c: [ ] };//(n)ame, (a)ttributes, (c)hildren
-		
+
 		if( this.active ){
 			this.active.c.push(node);
 			this.stack.push(this.active);
@@ -89,32 +89,32 @@ XMLWriter.prototype = {
 		this.writeString('<!-- ' + text + ' -->');
 	},
 	//generate the xml string, you can skip closing the last nodes
-	flush:function(){		
+	flush:function(){
 		if( this.stack && this.stack[0] )//ensure it's closed
 			this.writeEndDocument();
-		
-		var 
+
+		var
 			chr = '', indent = '', num = this.indentation,
 			formatting = this.formatting.toLowerCase() == 'indented',
 			buffer = '<?xml version="'+this.version+'" encoding="'+this.encoding+'"';
-		
-		if( this.standalone !== undefined )			
+
+		if( this.standalone !== undefined )
 			buffer += ' standalone="' +  (this.standalone ? 'yes' : 'no') + '" ';
 		buffer += ' ?>';
-		
+
 		buffer = [buffer];
-		
+
 		if( this.doctype && this.root )
-			buffer.push('<!DOCTYPE '+ this.root.n + ' ' + this.doctype+'>'); 
-		
+			buffer.push('<!DOCTYPE '+ this.root.n + ' ' + this.doctype+'>');
+
 		if( formatting ){
 			while( num-- )
 				chr += this.indentChar;
 		}
-		
+
 		if( this.root )//skip if no element was added
 			format( this.root, indent, chr, buffer );
-		
+
 		return buffer.join( formatting ? this.newLine : '' );
 	},
 	//cleanup, don't use again without calling startDocument
@@ -123,7 +123,7 @@ XMLWriter.prototype = {
 			clean( this.root );
 		this.active = this.root = this.stack = null;
 	},
-	getDocument: window.ActiveXObject 
+	getDocument: window.ActiveXObject
 		? function(){ //MSIE
 			var doc = new ActiveXObject('Microsoft.XMLDOM');
 			doc.async = false;
@@ -135,8 +135,8 @@ XMLWriter.prototype = {
 	}
 };
 
-function html(s) { 
-	return s.split('&').join('&amp;').split( '<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;') 
+function html(s) {
+	return s.split('&').join('&amp;').split( '<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;')
 }
 
 
@@ -147,29 +147,29 @@ function clean( node ){
 		if( typeof node.c[l] == 'object' )
 			clean( node.c[l] );
 	}
-	node.n = node.a = node.c = null;	
+	node.n = node.a = node.c = null;
 };
 
 //utility, you don't need it
 function format( node, indent, chr, buffer ){
-	var 
+	var
 		xml = indent + '<' + node.n,
 		nc = node.c.length,
 		attr, child, i = 0;
-		
+
 	for( attr in node.a )
 		xml += ' ' + attr + '="' + node.a[attr] + '"';
-	
+
 	xml += nc ? '>' : ' />';
 
 	buffer.push( xml );
-		
+
 	if( nc ){
 		do{
 			child = node.c[i++];
 			if( typeof child == 'string' ){
 				if( nc == 1 )//single text node
-					return buffer.push( buffer.pop() + child + '</'+node.n+'>' );					
+					return buffer.push( buffer.pop() + child + '</'+node.n+'>' );
 				else //regular text node
 					buffer.push( indent+chr+child );
 			}else if( typeof child == 'object' ) //element node
