@@ -82,6 +82,8 @@ XMLWriter.prototype = {
 	},
 	//add a text node wrapped with CDATA
 	writeCDATA:function( text ){
+		// keep nested CDATA
+		text = text.replace(/>>]/g, "]]><![CDATA[>");
 		this.writeString( '<![CDATA[' + text + ']]>' );
 	},
 	//add a text node wrapped in a comment
