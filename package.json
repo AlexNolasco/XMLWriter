@@ -1,0 +1,15 @@
+{
+	"name": "XMLWriter",
+	"description": "XML generator for Javascript, based on .NET's XMLTextWriter",
+	"version": "1.0.0",
+	"author": {
+		"name": "Ariel Flesler",
+		"email": "aflesler@gmail.com"
+	},
+	"contributors": [
+		{
+			"name": "alex",
+			"email": "alexnolasco@yahoo.com"
+		}
+	]
+}
