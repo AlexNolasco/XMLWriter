@@ -16,9 +16,10 @@ function demo() {
     xw.writeElementString('description', 'a save button');
     xw.writeEndElement();
 
-    xw.writeComment('image');
+    xw.writeComment('image');	
     xw.writeStartElement('item');
     xw.writeAttributeString('id', 'item-2');
+	xw.writeRawAttributeString('data-test','this is a raw attribute string use carefully');
     xw.writeAttributeString('enabled', 'false');
     xw.writeStartElement('code');
     xw.writeCDATA('<img src="photo.gif" alt="me" />');
