@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">	
+	<title>Example</title>
+	<!-- Mobile-friendly viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="../../XMLWriter.js"></script>
+	<script type="text/javascript" src="demo.js"></script>	
+</head>
+
+<body onload="demo()">
+	<h1>Demo</h1>	
+	
+	<pre>
+xw.writeStartDocument( );	
+xw.writeStartElement( 'items' );
+
+xw.writeComment('button');
+xw.writeStartElement('item');
+xw.writeAttributeString( 'id', 'item-1');
+xw.writeAttributeString( 'enabled', 'true' );
+xw.writeStartElement( 'code');
+xw.writeCDATA( '&lt;button&gt;Save&lt;/button&gt;' );
+xw.writeEndElement();
+xw.writeElementString('description', 'a save button');
+xw.writeEndElement();
+
+xw.writeComment('image');
+xw.writeStartElement('item');
+xw.writeAttributeString( 'id', 'item-2');
+xw.writeAttributeString( 'enabled', 'false' );
+xw.writeStartElement( 'code');
+xw.writeCDATA( '&lt;img src=&quot;photo.gif&quot; alt=&quot;me&quot; /&gt;' );
+xw.writeEndElement();
+xw.writeElementString('description', 'a pic of myself!');
+xw.writeEndElement();
+
+xw.writeComment('link');
+xw.writeStartElement('item');
+xw.writeAttributeString( 'id', 'item-3');
+xw.writeAttributeString( 'enabled', 'true' );
+xw.writeStartElement( 'code');
+xw.writeCDATA( '&lt;a href=&quot;http://google.com&quot;&gt;Google&lt;/a&gt;' );
+xw.writeEndElement();
+xw.writeElementString('description', 'a link to Google');
+xw.writeEndElement();
+
+xw.writeEndElement();
+xw.writeEndDocument();
+	
+	</pre>
+</body>
+</html>
